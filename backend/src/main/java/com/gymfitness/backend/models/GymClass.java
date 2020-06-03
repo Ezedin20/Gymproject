@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,12 +34,13 @@ public class GymClass {
     @JoinColumn(name="locationId", referencedColumnName = "locationId")
     private Location location;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="instructorId", referencedColumnName = "userId")
     private User instructor;
 
-    @OneToOne(mappedBy = "gymClass")
-    private Waitlist waitlist;
+    @OneToMany(mappedBy = "gymClass")
+    private List<Waitlist> waitlist;
 
     @OneToOne(mappedBy = "gymClass")
     private Attendance attendance;
@@ -46,16 +48,10 @@ public class GymClass {
     public GymClass(){
     }
 
-    /**
-     * @return the waitlist
-     */
-    public Waitlist getWaitlist() {
+    public List<Waitlist> getWaitlist() {
         return waitlist;
     }
-    /**
-     * @param waitlist the waitlist to set
-     */
-    public void setWaitlist(Waitlist waitlist) {
+    public void setWaitlist(List<Waitlist> waitlist) {
         this.waitlist = waitlist;
     }
 

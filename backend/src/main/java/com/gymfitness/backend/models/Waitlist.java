@@ -5,8 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
+import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,13 +18,13 @@ public class Waitlist {
     private Integer position;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name="userId")
+    @ManyToOne
+    @JoinColumn(name="userId", referencedColumnName = "userId")
     private User user;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name="classId")
+    @ManyToOne
+    @JoinColumn(name="classId", referencedColumnName = "classId")
     private GymClass gymClass;
 
     public Waitlist(Integer position, User user, GymClass gymClass){

@@ -137,13 +137,14 @@ public class ClassController {
         GymClass gymClass = gymClassRepository.findById(request.getClassid())
                         .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + request.getEmail()));
 
-        List<Waitlist> waitlistList = waitlistRepository.findAll();
+        List<Waitlist> waitlistList = waitlistRepository.findByGymClassClassId(request.getClassid());
         Integer pos = 1;
         if(waitlistList.size() > 0){
             for (Waitlist waitlist : waitlistList) {
                 if(waitlist.getPosition() > pos){
                     pos = waitlist.getPosition();
                 }
+                pos++;
             }
         }
 
@@ -177,7 +178,7 @@ public class ClassController {
             for (Waitlist waitlist : waitlistList) {
                 if(waitlist.getPosition() == 1){
                     User waitlistUser = waitlist.getUser();
-                    List<GymClass> wuExistingGymList = user.getGymClasses();
+                    List<GymClass> wuExistingGymList = waitlistUser.getGymClasses();
                     wuExistingGymList.add(gymClass);
                     waitlistUser.setGymClasses(wuExistingGymList);
                     userRepository.save(waitlistUser);

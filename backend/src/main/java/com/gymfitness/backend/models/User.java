@@ -46,8 +46,8 @@ public class User {
     @OneToMany(mappedBy = "instructor")
     private List<GymClass> instructorClass;
 
-    @OneToOne(mappedBy = "user")
-    private Waitlist waitlist;
+    @OneToMany(mappedBy = "user")
+    private List<Waitlist> waitlist;
 
     @OneToOne(mappedBy = "user")
     private Attendance attendance;
@@ -77,16 +77,10 @@ public class User {
         this.attendance = attendance;
     }
 
-    /**
-     * @return the waitlist
-     */
-    public Waitlist getWaitlist() {
+    public List<Waitlist> getWaitlist() {
         return waitlist;
     }
-    /**
-     * @param waitlist the waitlist to set
-     */
-    public void setWaitlist(Waitlist waitlist) {
+    public void setWaitlist(List<Waitlist> waitlist) {
         this.waitlist = waitlist;
     }
 
